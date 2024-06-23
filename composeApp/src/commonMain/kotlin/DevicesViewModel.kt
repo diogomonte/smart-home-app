@@ -35,6 +35,13 @@ class DevicesViewModel: ViewModel() {
     fun updateDevices() {
         viewModelScope.launch {
             val devices = listDevices()
+            /*val devices = arrayListOf(
+                Device("1", "mostrera", "plant", "online"),
+                Device("1", "mostrera", "plant", "online"),
+                Device("1", "mostrera", "plant", "online"),
+                Device("1", "mostrera", "plant", "online"),
+                Device("1", "mostrera", "plant", "online")
+            )*/
             _uiState.update {
                 it.copy(devices = devices)
             }

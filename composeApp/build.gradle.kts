@@ -48,6 +48,7 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.json)
+            implementation(libs.ktor.client.cio)
             implementation(libs.ktor.client.negotiation)
             implementation(libs.kotlinx.coroutines.core)
 
