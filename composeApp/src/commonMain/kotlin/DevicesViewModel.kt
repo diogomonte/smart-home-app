@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 
 data class DeviceUiState(val devices: List<Device> = emptyList())
 
-data class DeviceLiveData(val data: String = "")
+data class DeviceLiveData(val device: Device = Device(), val data: String = "")
 
 class DevicesViewModel: ViewModel() {
     private val _uiState = MutableStateFlow(DeviceUiState())
@@ -62,7 +62,6 @@ class DevicesViewModel: ViewModel() {
                 }
             }
         ).execute { httpResponse ->
-            var i = 0;
             val channel: ByteReadChannel = httpResponse.body()
             val sb = StringBuilder()
             while (!channel.isClosedForRead) {

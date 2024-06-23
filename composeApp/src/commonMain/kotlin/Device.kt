@@ -4,11 +4,11 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Device(
     @SerialName("Id")
-    val id: String,
+    val id: String = "",
     @SerialName("DeviceId")
-    val deviceId: String,
+    val deviceId: String = "",
     @SerialName("DeviceType")
-    val deviceType: String,
+    val deviceType: String = "",
     @SerialName("Status")
-    val status: String,
+    val status: String = "",
 )

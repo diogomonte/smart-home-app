@@ -28,9 +28,11 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -58,11 +60,22 @@ fun App() {
             composable(route = DevicesScreen.Start.name) {
                 DevicesPage(
                     uiState,
-                    onDeviceClicked = { navHostController.navigate(DevicesScreen.Details.name) }
+                    onDeviceClicked = { device -> navHostController.navigate(DevicesScreen.Details.name+"?deviceId=${device.deviceId}") }
                 )
             }
-            composable(route = DevicesScreen.Details.name) {
-                DeviceDetails(devicesViewModel)
+            composable(
+                route = DevicesScreen.Details.name + "?deviceId={deviceId}",
+                arguments = listOf(
+                    navArgument(
+                        name = "deviceId"
+                    ) {
+                        type = NavType.StringType
+                        defaultValue = ""
+                    },
+                )
+            ) {
+                val deviceId =  it.arguments?.getString("deviceId")
+                DeviceDetails(deviceId!!, devicesViewModel)
             }
         }
 
@@ -120,8 +133,8 @@ fun DeviceCell(
 }
 
 @Composable
-fun DeviceDetails(devicesViewModel: DevicesViewModel) {
+fun DeviceDetails(deviceId: String, devicesViewModel: DevicesViewModel) {
     val liveData = devicesViewModel.deviceLiveData.collectAsState()
-    devicesViewModel.deviceLiveData("mostrera")
+    devicesViewModel.deviceLiveData(deviceId)
     Text(liveData.value.data)
 }
