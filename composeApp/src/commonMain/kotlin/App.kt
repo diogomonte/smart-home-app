@@ -62,7 +62,7 @@ fun App() {
                 )
             }
             composable(route = DevicesScreen.Details.name) {
-                DeviceDetails()
+                DeviceDetails(devicesViewModel)
             }
         }
 
@@ -120,6 +120,8 @@ fun DeviceCell(
 }
 
 @Composable
-fun DeviceDetails() {
-    Text("hello")
+fun DeviceDetails(devicesViewModel: DevicesViewModel) {
+    val liveData = devicesViewModel.deviceLiveData.collectAsState()
+    devicesViewModel.deviceLiveData("mostrera")
+    Text(liveData.value.data)
 }
